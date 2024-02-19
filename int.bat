@@ -1,1 +1,1 @@
-scala %1/Main.scala
+scala %1
