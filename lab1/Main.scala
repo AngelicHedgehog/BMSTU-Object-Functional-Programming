@@ -1,14 +1,10 @@
-val sublists: (List[Int], Int) ⇒ List[List[Int]] = {
-    case (Nil, p) if (0 <= p)       ⇒ List(Nil)
-    case (Nil, _)                   ⇒ Nil
-    case (x :: xs, p) if (x <= p)   ⇒ List(x) :: sublists(xs, p)
-    case (x :: Nil, p)              ⇒ sublists(Nil, p)
-    case (x :: y :: xs, p)          ⇒
-        sublists((x + y) :: xs, p) match {
-            case (Nil) | (Nil :: Nil)   ⇒ Nil
-            case (Nil :: _)             ⇒ Nil // невалидный случай
-            case ((aa :: aas) :: as)    ⇒ (x :: (aa - x) :: aas) :: as
+val partitionP: (List[Int], Int => Boolean) => (List[Int], List[Int]) = {
+    case (Nil, f)       ⇒ (Nil, Nil)
+    case (x :: xs, f)   ⇒
+        partitionP(xs, f) match {
+            case (as, bs) if (f(x)) ⇒ (x :: as, bs)
+            case (as, bs)           ⇒ (as, x :: bs)
         }
 }
 
-println(sublists(List(0, 0, 1, -2, -5, 10, -3, 0, 1, -10, 1, -2), 0))
+println(partitionP(List(0, 0, 1, -2, -5, 10, -3, 0, 1, -10, 1, -2), _ % 2 == 0))
