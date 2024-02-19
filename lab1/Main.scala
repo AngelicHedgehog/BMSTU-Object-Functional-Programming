@@ -1,9 +1,9 @@
 val partitionP: (List[Int], Int => Boolean) => (List[Int], List[Int]) = {
-    case (Nil, f)       ⇒ (Nil, Nil)
-    case (x :: xs, f)   ⇒
+    case (Nil, f)       => (Nil, Nil)
+    case (x :: xs, f)   =>
         partitionP(xs, f) match {
-            case (as, bs) if (f(x)) ⇒ (x :: as, bs)
-            case (as, bs)           ⇒ (as, x :: bs)
+            case (as, bs) if (f(x)) => (x :: as, bs)
+            case (as, bs)           => (as, x :: bs)
         }
 }
 
