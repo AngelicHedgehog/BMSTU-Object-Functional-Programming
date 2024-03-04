@@ -1,5 +1,4 @@
-class MyVector( vect: Vector[Int] ) {
-    private var _vect = vect
+class MyVector( private val _vect: Vector[Int] ) {
 
     def this ( init_list: Int* ) = this(init_list.toVector)
 
@@ -21,9 +20,14 @@ class MyVector( vect: Vector[Int] ) {
         new MyVector(_vect.map(_ * scalar))
 }
 
+implicit class MyVectorFactor( x: Int ) {
+    def * ( v: MyVector ) = v * x
+}
+
 val vect1 = new MyVector(1, 2, 3)
 val vect2 = new MyVector(4, 5, 6)
 println(vect1 + vect2)  // (5, 7, 9)
 println(vect1 - vect2)  // (-3, -3, -3)
 println(vect1 * vect2)  // 1*4 + 2*5 + 3*6 = 4 + 10 + 18 = 32
 println(vect1 * 3)      // (3, 6, 9)
+println(2 * vect2)      // (8, 10, 12)
