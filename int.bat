@@ -1,1 +1,1 @@
-scala -deprecation %1
+scala -deprecation -feature %1
