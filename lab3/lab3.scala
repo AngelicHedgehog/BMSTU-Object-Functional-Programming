@@ -8,14 +8,14 @@ class Range[T]( val start: T, val stop: T )( implicit ord: Ordering[T] ) {
         ord.lteq(other.start, this.stop) &&
         ord.gteq(other.stop, this.start)
     
-    def getIntersect( other: Range[T] ) = {
+    def getIntersect( other: Range[T] ): Option[Range[T]] = {
         if (!hasIntersect(other)) {
-            null
+            None
         } else {
-            new Range(
+            Some(new Range(
                 ord.min(other.start, this.start),
                 ord.max(other.stop, this.stop)
-            )
+            ))
         }
     }
 
